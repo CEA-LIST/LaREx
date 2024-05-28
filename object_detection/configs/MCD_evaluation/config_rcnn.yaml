@@ -1,0 +1,53 @@
+# @package _global_
+
+# default configuration
+defaults:
+    - _self_
+    - logger: mlflow.yaml
+
+    # enable color logging
+    # - override hydra/hydra_logging: colorlog
+    # - override hydra/job_logging: colorlog
+
+work_dir: ${hydra:runtime.cwd}
+data_dir: ${work_dir}/MCD_evaluation_data/
+log_dir: logs_hydra/runs/${logger.mlflow.experiment_name}/${now:%Y-%m-%d_%H-%M-%S}
+
+# Datasets
+# InD: either cifar10 or svhn
+ind_dataset: "voc"
+ood_dataset: "bdd"
+# Eval configuration
+precomputed_mcd_runs: 16
+max_n_proposals: 1280
+layer_type: "RPN"
+bdd_valid_mcd_samples: ${layer_type}/${ind_dataset}_valid_${layer_type}_8275_${max_n_proposals}_${precomputed_mcd_runs}_mcd_samples.pt
+bdd_test_mcd_samples: ${layer_type}/${ind_dataset}_test_${layer_type}_2030_${max_n_proposals}_${precomputed_mcd_runs}_mcd_samples.pt
+ood_mcd_samples: ${layer_type}/${ood_dataset}_ood_test_${layer_type}_2000_${max_n_proposals}_${precomputed_mcd_runs}_mcd_samples.pt
+# Precomputed entropies
+bdd_entropy_valid: ${layer_type}/${ind_dataset}_valid_${layer_type}_8275_${max_n_proposals}_${precomputed_mcd_runs}_mcd_h_z_samples.npy
+bdd_entropy_test: ${layer_type}/${ind_dataset}_test_${layer_type}_2030_${max_n_proposals}_${precomputed_mcd_runs}_mcd_h_z_samples.npy
+ood_entropy_test: ${layer_type}/${ood_dataset}_ood_test_${layer_type}_2000_${max_n_proposals}_${precomputed_mcd_runs}_mcd_h_z_samples.npy
+# Number of Monte Carlo Dropout runs to use.
+n_mcd_runs: 16
+# This parameter controls the raw number of proposals from RPN to be used.
+# If it is <1000, a random sampler will take that number of samples to continue with the rest of the algorithm
+use_n_proposals: 1280
+#n_pca_components: [1, 2, 3, 4, 6, 8, 10, 12]
+n_pca_components: [1, 6, 14, 20, 24, 32, 40, 48, 56, 64, 72, 80]
+#n_pca_components: [8, 20, 28, 36, 40, 46, 52, 60, 68]
+n_pacmap_neighbors: 10
+n_pacmap_components: [2, 6, 10, 12, 16, 20]
+#n_pacmap_components: [2, 12]
+normalize_kde_prediction: False
+exp_kde: False
+seed: 42
+
+hydra:
+    # output paths for hydra logs
+    run:
+        dir: ${log_dir}
+
+    sweep:
+        dir: logs_hydra/multiruns/${now:%Y-%m-%d_%H-%M-%S}
+        subdir: ${hydra.job.num}

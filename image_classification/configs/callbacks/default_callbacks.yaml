@@ -1,0 +1,17 @@
+model_checkpoint:
+    monitor: "Validation loss"
+    save_top_k: 1
+    save_last: True
+    mode: "min"
+    verbose: False
+    dirpath: 'checkpoints/'
+    filename: '{epoch:02d}'
+    every_n_epochs: 1
+    save_on_train_epoch_end: False
+
+#early_stopping:
+#    _target_: pytorch_lightning.callbacks.EarlyStopping
+#    monitor: "val/acc"
+#    patience: 100
+#    mode: "max"
+#    min_delta: 0

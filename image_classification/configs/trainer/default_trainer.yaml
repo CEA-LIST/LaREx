@@ -1,0 +1,14 @@
+#_target_: pytorch_lightning.Trainer
+
+# Number of devices. If cpu write gpus=1
+gpus: -1
+
+epochs: 300
+
+progress_bar_refresh_rate: 10
+
+log_every_n_step: 400
+
+distributed_strategy: 'ddp'
+
+slurm_auto_requeue: False

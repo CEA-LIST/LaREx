@@ -1,0 +1,39 @@
+_BASE_: "../Base-Inference.yaml"
+
+PROBABILISTIC_INFERENCE:
+    # One of the following: 'standard_nms', 'mc_dropout_ensembles',
+    # 'anchor_statistics', 'bayes_od', 'ensemble'
+    INFERENCE_MODE: 'standard_nms'
+
+    MC_DROPOUT:
+        # Enables MC_Dropout if INFERENCE_MODE supports it.
+        # After inference: perform MC dropout after a normal inference pass (default option for TDL project)
+        AFTER_INFERENCE: True
+        ENABLE: True
+        NUM_RUNS: 16
+        # Layer_type is either 'FC' (Fully Connected for a normal dropout layer),
+        # 'backbone', to get the tensor of outputs from backbone
+        # 'RPN' for the output of the RPN's objectness logits (Dropblock), or
+        # 'Conv' (Convolutional for a Dropblock layer)
+        LAYER_TYPE: 'RPN'
+        # HOOK_RELU: use the Hook on the ReLU layer after the dropout layer. If false: Hookd the dropout layer
+        HOOK_RELU_AFTER_DROPOUT: False
+        HOOK_DROPOUT_BEFORE_RELU: False
+        HOOK_DROPBLOCK_RPN: True
+        HOOK_DROPBLOCK_AFTER_BACKBONE: False
+        DROPBLOCK_PROB: 0.5
+        DROPBLOCK_SIZE: 4
+
+    OUTPUT_BOX_CLS: True
+    ASH_INFERENCE: False
+    ASH_PERCENTILE: 65
+    REACT_PERCENTILE: 85
+    DICE_PERCENTILE: 85
+
+    # Either 'openimages_ood_val' for openimages OoD or 'coco_ood_val_bdd', or coco_ood_val for InD VOC
+    OOD_DATASET: "openimages_ood_val"
+
+MODEL:
+    RPN:
+        # Either "StandardRPNHead" to not use dropblock in the RPN, or "MCDRpnHead" to use dropblock on the RPN
+        HEAD_NAME: "MCDRpnHead"

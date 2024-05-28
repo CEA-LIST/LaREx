@@ -1,0 +1,7 @@
+cifar10: 0.5  # From test size 10000 default:0.5
+fmnist: 0.5  # From test size 10000 default:0.5
+svhn: 0.2  # From test size 26000 default:0.2
+places: 0.14  # From test size 36500 default:0.14
+lsun_c: 0.5  # From test size 10000 default:0.5
+lsun_r: 0.5  # From test size 10000 default:0.5
+isun: 0.56  # From test size 8925 default:0.56

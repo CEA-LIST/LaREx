@@ -1,0 +1,14 @@
+# MLFlow
+
+mlflow:
+    _target_: pytorch_lightning.loggers.MLFlowLogger
+    # USED: Evaluate_MCD_OoD_detection, Evaluate_MCD_OoD_detection_CIFAR10, Evaluate_MCD_OoD_detection_RCNN
+    # Evaluate_MCD_OoD_detection_CIFAR10_Orig_resnet
+    experiment_name: "Evaluate_MCD_OoD_detection_RCNN_VOC"
+    #tags:
+    #    stage: evaluation
+    #    dropout: True
+    #    dropout_location: "box head"
+    #    vos: False
+
+    # tracking_uri: "file:${work_dir}/mlruns"

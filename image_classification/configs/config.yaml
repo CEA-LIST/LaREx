@@ -1,0 +1,63 @@
+# @package _global_
+
+# default configuration
+defaults:
+    # model config
+    - trainer: default_trainer.yaml
+    - model: model_resnet.yaml
+    - datamodule: gtsrb_datamodule.yaml
+    - callbacks: default_callbacks.yaml
+    - logger: mlflow.yaml
+    - datasets_sizes: datasets_sizes.yaml
+
+    # enable color logging
+    # - override hydra/hydra_logging: colorlog
+    # - override hydra/job_logging: colorlog
+
+work_dir: ${hydra:runtime.cwd}
+data_dir: ./data/cifar10-data/
+log_dir: logs_hydra/runs/${logger.mlflow.experiment_name}/${now:%Y-%m-%d_%H-%M-%S}
+
+# use `python main.py debug=true` for easy debugging
+# this will run 1 train, val and test loop with only 1 batch
+#debug: False
+
+#disable_warnings: True
+rich_progbar: False
+slurm: False
+seed: 9290
+
+# either gtsrb or cifar10
+ind_dataset: "cifar10"
+# For gtsrb as ind: "anomalies", "stl10", "cifar10"
+# For cifar10 as ind:
+#ood_datasets: ["anomalies", "stl10", "cifar10"]
+ood_datasets: ["fmnist", "svhn", "places", "textures", "lsun_c", "lsun_r", "isun"]
+#ood_datasets: ["lsun_c", "lsun_r", "isun"]
+
+# MCD parameters
+mcd_n_samples: 16
+layer_type: "Conv"
+architecture: "resnet"
+hook_location: 2
+reduction_method: "fullmean"
+original_resnet_architecture: True
+model_path: "./lightning_logs/2023-11-15_09-34-34_ind_cifar10_vanilla_128_do_norm_input_naug_db5/epoch=268-step=84197.ckpt"  # Daniel
+train_subsamples_size: 0.21  # of the train dataset to perform the OoD detection tasks, not the training
+n_pca_components: [2, 6, 12, 20, 24, 28, 32, 36, 44, 52]
+#n_pca_components: [20, 30, 40]
+# Pred_h and mi are by default as baselines, don't put them here
+#baselines: ["dice", "react", "dice_react"]
+baselines: ["msp", "energy", "mdist", "knn", "ash", "dice", "react", "dice_react"]
+ash_percentile: 80
+dice_p: 90
+react_percentile: 90
+
+hydra:
+    # output paths for hydra logs
+    run:
+        dir: ${log_dir}
+
+    sweep:
+        dir: logs_hydra/multiruns/${now:%Y-%m-%d_%H-%M-%S}
+        subdir: ${hydra.job.num}

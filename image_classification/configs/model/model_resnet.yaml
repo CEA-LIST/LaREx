@@ -1,0 +1,15 @@
+model_name: 'resnet18'
+input_channels: 3
+spectral_norm: False
+spectral_norm_only_fc: False
+drop_block: True
+dropblock_prob: 0.4
+dropblock_block_size: 5
+dropout: True
+dropout_prob: 0.3
+lr: 1e-4
+weight_decay: 1e-4
+loss_type: 'focal'
+activation: "relu"
+avg_pool: False
+batch_norm: True
