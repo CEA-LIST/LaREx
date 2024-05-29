@@ -69,7 +69,6 @@ def get_data_loaders_image_classification(cfg, datasets_paths, n_workers):
             anomalies=False
         )
         gtsrb_normal_dm = GtsrbModule(img_size=(cfg.datamodule.image_width, cfg.datamodule.image_height),
-                                      # data_path=gtsrb_path,
                                       data_path=datasets_paths["gtsrb"],
                                       batch_size=1,
                                       shuffle=False,
@@ -93,7 +92,6 @@ def get_data_loaders_image_classification(cfg, datasets_paths, n_workers):
         ic("gtsrb anomalies as OoD")
         gtsrb_anomal_dm = GtsrbModule(
             img_size=(cfg.datamodule.image_width, cfg.datamodule.image_height),
-            # data_path=gtsrb_path,
             data_path=datasets_paths["gtsrb"],
             batch_size=1,
             anomaly_transforms=True,

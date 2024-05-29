@@ -15,12 +15,6 @@ from ls_ood_detect.metrics import get_hz_detector_results, \
 from ls_ood_detect.dimensionality_reduction import apply_pca_ds_split, apply_pca_transform
 
 device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
-# If both next two flags are false, mlflow will create a local tracking uri for the experiment
-# Upload analysis to the TDL server
-UPLOAD_FROM_LOCAL_TO_SERVER = True
-# Upload analysis ran on the TDL server
-UPLOAD_FROM_SERVER_TO_SERVER = False
-assert UPLOAD_FROM_SERVER_TO_SERVER + UPLOAD_FROM_LOCAL_TO_SERVER <= 1
 
 
 @hydra.main(version_base=None, config_path="configs", config_name="config.yaml")
@@ -84,24 +78,14 @@ def main(cfg: DictConfig) -> None:
             ood_entropies_dict[ood_dataset] = np.load(file=op_join(save_dir, f"{cfg.ind_dataset}_anomal_h_z.npy"))
         else:
             ood_entropies_dict[ood_dataset] = np.load(file=op_join(save_dir, f"{ood_dataset}_h_z.npy"))
-    # assert False
-    # start_n_h_comps = 20
-    # n_h_comps = 15
-    # violin_plot_x = np.arange(n_h_comps)
-    # fig = plt.figure(figsize=(8, 6))
-    # plt.violinplot(dataset=ind_data_dict["h_z_train"][:, start_n_h_comps:start_n_h_comps+n_h_comps], positions=violin_plot_x)
-    # plt.violinplot(dataset=ood_entropies_dict["textures"][:, start_n_h_comps:start_n_h_comps+n_h_comps], positions=violin_plot_x)
-    # plt.legend()
+
     #######################################################################
     # Setup MLFLow
     #######################################################################
     # Setup MLFlow for experiment tracking
     # MlFlow configuration
     experiment_name = cfg.logger.mlflow.experiment_name
-    if UPLOAD_FROM_LOCAL_TO_SERVER:
-        mlflow.set_tracking_uri("http://10.8.33.50:5050")
-    elif UPLOAD_FROM_SERVER_TO_SERVER:
-        mlflow.set_tracking_uri("http://127.0.0.1:5051")
+    mlflow.set_tracking_uri("http://10.8.33.50:5050")
     existing_exp = mlflow.get_experiment_by_name(experiment_name)
     if not existing_exp:
         mlflow.create_experiment(

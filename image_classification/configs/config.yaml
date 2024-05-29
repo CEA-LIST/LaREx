@@ -5,7 +5,7 @@ defaults:
     # model config
     - trainer: default_trainer.yaml
     - model: model_resnet.yaml
-    - datamodule: gtsrb_datamodule.yaml
+    - datamodule: datamodule.yaml
     - callbacks: default_callbacks.yaml
     - logger: mlflow.yaml
     - datasets_sizes: datasets_sizes.yaml
@@ -29,11 +29,9 @@ seed: 9290
 
 # either gtsrb or cifar10
 ind_dataset: "cifar10"
-# For gtsrb as ind: "anomalies", "stl10", "cifar10"
 # For cifar10 as ind:
-#ood_datasets: ["anomalies", "stl10", "cifar10"]
 ood_datasets: ["fmnist", "svhn", "places", "textures", "lsun_c", "lsun_r", "isun"]
-#ood_datasets: ["lsun_c", "lsun_r", "isun"]
+
 
 # MCD parameters
 mcd_n_samples: 16
@@ -47,7 +45,6 @@ train_subsamples_size: 0.21  # of the train dataset to perform the OoD detection
 n_pca_components: [2, 6, 12, 20, 24, 28, 32, 36, 44, 52]
 #n_pca_components: [20, 30, 40]
 # Pred_h and mi are by default as baselines, don't put them here
-#baselines: ["dice", "react", "dice_react"]
 baselines: ["msp", "energy", "mdist", "knn", "ash", "dice", "react", "dice_react"]
 ash_percentile: 80
 dice_p: 90

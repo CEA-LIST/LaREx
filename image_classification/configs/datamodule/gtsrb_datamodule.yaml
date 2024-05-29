@@ -1,8 +1,0 @@
-data_dir: ${data_dir}
-batch_size: 64
-image_width: 128
-image_height: 128
-shuffle: True
-# Data augmentations: 'none', 'basic' 'extra'
-data_augmentations: "none"
-cifar10_normalize_inputs: True

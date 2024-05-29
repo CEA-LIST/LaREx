@@ -2,4 +2,4 @@
 
 mlflow:
     _target_: pytorch_lightning.loggers.MLFlowLogger
-    experiment_name: "Evaluate_MCD_OoD_detection_CIFAR10_Fabio_resnet"
+    experiment_name: "Evaluate_MCD_OoD_detection_CIFAR10_resnet"

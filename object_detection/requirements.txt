@@ -1,0 +1,10 @@
+pyyaml==5.1
+wand
+scikit-image
+scikit-learn
+opencv-python
+mlflow==2.2.2
+# Torch
+--find-links https://download.pytorch.org/whl/cu101/torch_stable.html
+torch==1.13.1
+torchvision==0.14.1
