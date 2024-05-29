@@ -1,6 +1,8 @@
 # LaREx
 Official repo of LaREx: Latent Representation Entropy density for distribution shift detection UAI 2024 Paper.
 
+![](https://github.com/CEA-LIST/LaREx/blob/main/object_detection/larex_demo.gif)
+
 # Abstract
 
 Distribution shift detection is paramount in safety-critical tasks that rely on Deep Neural Networks (DNNs). The detection task entails deriving a confidence score to assert whether a new input sample aligns with the training data distribution of the DNN model. While DNN predictive uncertainty offers an intuitive confidence measure, exploring uncertainty-based distribution shift detection with simple sample-based techniques has been relatively overlooked in recent years due to computational overhead and lower performance than plain post-hoc methods. This paper proposes using simple sample-based techniques for estimating uncertainty and employing the entropy density from intermediate representations to detect distribution shifts. We demonstrate the effectiveness of our method using standard benchmark datasets for out-of-distribution detection and across different common perception tasks with Convolutional Neural Network architectures. Our scope extends beyond classification, encompassing image-level distribution shift detection for object detection and semantic segmentation tasks. Our results show that our method's performance is comparable to existing State-of-the-Art methods while being computationally faster and lighter than other Bayesian approaches, affirming its practical utility.
