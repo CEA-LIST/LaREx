@@ -15,8 +15,8 @@ log_dir: logs_hydra/runs/${logger.mlflow.experiment_name}/${now:%Y-%m-%d_%H-%M-%
 
 # Datasets
 # InD: either cifar10 or svhn
-ind_dataset: "voc"
-ood_dataset: "bdd"
+ind_dataset: "bdd"
+ood_dataset: "coco"
 # Eval configuration
 precomputed_mcd_runs: 16
 max_n_proposals: 1280

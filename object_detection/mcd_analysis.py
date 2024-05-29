@@ -17,20 +17,8 @@ import warnings
 # Filter the append warning from pandas
 warnings.simplefilter(action='ignore', category=FutureWarning)
 
-# If both next two flags are false, mlflow will create a local tracking uri for the experiment
-# Upload analysis to the TDL server
-UPLOAD_FROM_LOCAL_TO_SERVER = True
-# Upload analysis ran on the TDL server
-UPLOAD_FROM_SERVER_TO_SERVER = False
-assert UPLOAD_FROM_SERVER_TO_SERVER + UPLOAD_FROM_LOCAL_TO_SERVER <= 1
-# Perform analysis either on RCNN or RESNET
-RCNN = True
-RESNET = False
-assert RCNN + RESNET == 1
-if RCNN:
-    config_file = "config_rcnn.yaml"
-else:
-    config_file = "config.yaml"
+config_file = "config_rcnn.yaml"
+
 BASELINES = ["pred_h", "mi", "ash", "react", "dice", "dice_react", "msp", "energy"]
 # energy_based_baselines = ["ash", "react", "dice", "dice_react", "energy"]
 full_names_baselines = ["pred_h", "mi", "msp", "filtered_energy", "filtered_ash",
@@ -143,10 +131,7 @@ def main(cfg: DictConfig) -> None:
     # Setup MLFlow for experiment tracking
     # MlFlow configuration
     experiment_name = cfg.logger.mlflow.experiment_name
-    if UPLOAD_FROM_LOCAL_TO_SERVER:
-        mlflow.set_tracking_uri("http://XXXXXXXXXXX")
-    elif UPLOAD_FROM_SERVER_TO_SERVER:
-        mlflow.set_tracking_uri("http://XXXXXXXXXXXXX")
+    mlflow.set_tracking_uri("http://XXXXXXXXXXX")
     existing_exp = mlflow.get_experiment_by_name(experiment_name)
     if not existing_exp:
         mlflow.create_experiment(
@@ -159,16 +144,6 @@ def main(cfg: DictConfig) -> None:
         mlflow_run_dataset = "cc"
     elif cfg.ood_dataset == "openimages":
         mlflow_run_dataset = "oi"
-    elif cfg.ood_dataset == "gtsrb":
-        mlflow_run_dataset = "gtsrb"
-    elif cfg.ood_dataset == "svhn":
-        mlflow_run_dataset = "svhn"
-    elif cfg.ood_dataset == "bdd":
-        mlflow_run_dataset = "bdd"
-    elif cfg.ood_dataset == "voc":
-        mlflow_run_dataset = "voc"
-    else:
-        mlflow_run_dataset = "cifar10"
     mlflow_run_name = f"{mlflow_run_dataset}_{cfg.layer_type}_{cfg.n_mcd_runs}_mcd_{cfg.use_n_proposals}"
 
     ##########################################################################
