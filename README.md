@@ -60,12 +60,17 @@ Extracted samples will be saved in the `MCD_evaluation_data` folder.
 2. run `python mcd_analysis.py`. The results will be automatically logged to an mlflow server, and saved to a csv.
 
 ## Instance segmentation
-1. Create an environment with python=3.7, and install the `requirements-segmentation.txt`.
+1. Create an environment with python=3.7, and install the `requirements-segmentation.txt`, which is the same for Deeplab and for Unet
 2. Download the datasets [Woodscapes](https://github.com/valeoai/WoodScape) or [cityscapes](https://www.cityscapes-dataset.com/)
-3. Train model running:
+3. Train DeepLab model running:
    ```python
    python train_deeplab_v3p.py -m deeplabv3p-backbone-dropblock2d --batch 16 --epochs 100 --loss_type focal_loss --dataset woodscape --datapath /your_path_to_dataset/WoodScape
    ```
+    Or train UNet model by running:
+    ```python
+   python train_unet_sem_seg.py --batch 16 --epochs 100 --loss_type focal_loss --dataset woodscape --datapath /your_path_to_dataset/WoodScape
+   ```
+   In either of their respective folders
 4. Use notebooks for feature extraction, and results analysis
 
 
