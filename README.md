@@ -9,9 +9,9 @@ Distribution shift detection is paramount in safety-critical tasks that rely on 
 
 # Use cases
 Our method has been tested in three use cases: 
-* Image classificcation using ResNet18, 
+* Image classification using ResNet18, 
 * Object detection using FasterRCNN, 
-* Instance segmentation using DeeplabV3. 
+* Semantic segmentation using DeeplabV3 and UNet. 
  
 Each one of them has its own working environment and usage, detailed below.
 
@@ -59,7 +59,7 @@ Extracted samples will be saved in the `MCD_evaluation_data` folder.
 1. Specify the name of your extracted files, and the OoD dataset to analyze in the `configs/MCD_evaluation/config_rcnn.yaml` file.
 2. run `python mcd_analysis.py`. The results will be automatically logged to an mlflow server, and saved to a csv.
 
-## Instance segmentation
+## Semantic segmentation
 1. Create an environment with python=3.7, and install the `requirements-segmentation.txt`, which is the same for Deeplab and for Unet
 2. Download the datasets [Woodscapes](https://github.com/valeoai/WoodScape) or [cityscapes](https://www.cityscapes-dataset.com/)
 3. Train DeepLab model running:
@@ -82,7 +82,7 @@ This publication was made possible by the use of the FactoryIA supercomputer, fi
 # Citation
 
 If you found any part of this code is useful in your research, please consider citing our paper:
-> @article{arnez,
+> @article{arnez2024larex,
       title={Latent Representation Entropy Density for distribution shift detection}, 
       author={Arnez, Montoya, Radermacher, Terrier},
       journal={Uncertainty in Artificial Intelligence UAI},
