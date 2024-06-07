@@ -83,10 +83,10 @@ This publication was made possible by the use of the FactoryIA supercomputer, fi
 
 If you found any part of this code is useful in your research, please consider citing our paper:
 > @inproceedings{
-arnez2024latent,
-title={Latent Representation Entropy Density for Distribution Shift Detection},
-author={Fabio Arnez and Daniel Alfonso Montoya Vasquez and Ansgar Radermacher and Fran{\c{c}}ois Terrier},
-booktitle={The 40th Conference on Uncertainty in Artificial Intelligence},
-year={2024},
-url={https://openreview.net/forum?id=1CKLfh3Ge7}
-}
+   arnez2024latent,
+   title={Latent Representation Entropy Density for Distribution Shift Detection},
+   author={Fabio Arnez and Daniel Alfonso Montoya Vasquez and Ansgar Radermacher and Fran{\c{c}}ois Terrier},
+   booktitle={The 40th Conference on Uncertainty in Artificial Intelligence},
+   year={2024},
+   url={https://openreview.net/forum?id=1CKLfh3Ge7 }
+> }
